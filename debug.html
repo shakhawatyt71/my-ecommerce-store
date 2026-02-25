@@ -4,121 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Debug — Kora Port</title>
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/header-footer.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/animations.css">
 <style>
-body{font-family:sans-serif;padding:20px;background:#f5f5f5}
-.test{background:#fff;padding:16px;margin:10px 0;border-radius:8px;border:1px solid #ddd}
+.test{background:var(--color-bg-card);padding:16px;margin:10px 0;border-radius:8px;border:1px solid var(--color-border-subtle)}
 .ok{color:green;font-weight:bold}
 .fail{color:red;font-weight:bold}
-h1{font-size:1.4rem}
-pre{background:#eee;padding:10px;border-radius:6px;font-size:0.8rem;overflow-x:auto;white-space:pre-wrap}
 </style>
 </head>
 <body>
-<h1>🔧 Kora Port Debug</h1>
-<p>এই পেজটা দেখে বুঝবেন কোথায় সমস্যা।</p>
+<div id="app-header"></div>
+<main class="container" style="padding:20px 16px;min-height:60vh">
+<h1>🔧 Full Debug Test</h1>
 <div id="results"></div>
+<h2 style="margin-top:24px">📦 Product Cards Test:</h2>
+<div class="product-grid" id="testGrid"></div>
+</main>
+<div id="app-footer"></div>
 
+<script src="js/config.js"></script>
+<script src="js/products-data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
 <script>
 var r = document.getElementById('results');
 function log(name, ok, detail) {
-  r.innerHTML += '<div class="test"><strong>' + name + '</strong>: <span class="' + (ok?'ok':'fail') + '">' + (ok?'✅ OK':'❌ FAIL') + '</span>' + (detail ? '<br><small>' + detail + '</small>' : '') + '</div>';
+  r.innerHTML += '<div class="test"><strong>'+name+'</strong>: <span class="'+(ok?'ok':'fail')+'">'+(ok?'✅ OK':'❌ FAIL')+'</span>'+(detail?'<br><small>'+detail+'</small>':'')+'</div>';
 }
 
-// Test 1: config.js
-try {
-  var s1 = document.createElement('script');
-  s1.src = 'js/config.js';
-  s1.onload = function() {
-    log('config.js', typeof CONFIG !== 'undefined', 'Store name: ' + (typeof CONFIG !== 'undefined' ? CONFIG.store.name : 'NOT FOUND'));
-    loadTest2();
-  };
-  s1.onerror = function() { log('config.js', false, 'ফাইল লোড হয়নি! js/ ফোল্ডারে config.js আছে কিনা দেখুন।'); };
-  document.body.appendChild(s1);
-} catch(e) { log('config.js', false, e.message); }
+log('config.js', typeof CONFIG !== 'undefined', typeof CONFIG !== 'undefined' ? 'Store: '+CONFIG.store.name : '');
+log('products-data.js', typeof PRODUCTS !== 'undefined', typeof PRODUCTS !== 'undefined' ? PRODUCTS.length+' products, '+CATEGORIES.length+' categories' : '');
+log('main.js', typeof formatPrice === 'function', 'formatPrice: '+(typeof formatPrice)+', renderStars: '+(typeof renderStars)+', updateCartBadge: '+(typeof updateCartBadge));
+log('home.js', typeof createProductCard === 'function', 'createProductCard: '+(typeof createProductCard));
+log('Header', !!document.getElementById('siteHeader'), document.getElementById('siteHeader')?'Header rendered':'Header NOT found');
+log('Footer', !!document.querySelector('.site-footer'), document.querySelector('.site-footer')?'Footer rendered':'Footer NOT found');
 
-function loadTest2() {
-  var s2 = document.createElement('script');
-  s2.src = 'js/products-data.js';
-  s2.onload = function() {
-    log('products-data.js', typeof PRODUCTS !== 'undefined', 'Products: ' + (typeof PRODUCTS !== 'undefined' ? PRODUCTS.length : 0) + ', Categories: ' + (typeof CATEGORIES !== 'undefined' ? CATEGORIES.length : 0));
-    loadTest3();
-  };
-  s2.onerror = function() { log('products-data.js', false, 'ফাইল লোড হয়নি!'); };
-  document.body.appendChild(s2);
-}
-
-function loadTest3() {
-  var s3 = document.createElement('script');
-  s3.src = 'js/main.js';
-  s3.onload = function() {
-    log('main.js', typeof formatPrice === 'function', 'formatPrice, renderStars, updateCartBadge ফাংশন আছে কিনা: ' + (typeof formatPrice === 'function'));
-    loadTest4();
-  };
-  s3.onerror = function() { log('main.js', false, 'ফাইল লোড হয়নি!'); };
-  document.body.appendChild(s3);
-}
-
-function loadTest4() {
-  var s4 = document.createElement('script');
-  s4.src = 'js/home.js';
-  s4.onload = function() {
-    log('home.js', typeof createProductCard === 'function', 'createProductCard ফাংশন আছে কিনা: ' + (typeof createProductCard === 'function'));
-    runFinalTests();
-  };
-  s4.onerror = function() { log('home.js', false, 'ফাইল লোড হয়নি!'); };
-  document.body.appendChild(s4);
-}
-
-function runFinalTests() {
-  // CSS test
-  var link1 = document.createElement('link');
-  link1.rel = 'stylesheet';
-  link1.href = 'css/global.css';
-  link1.onload = function() { log('global.css', true); };
-  link1.onerror = function() { log('global.css', false, 'CSS ফাইল লোড হয়নি!'); };
-  document.head.appendChild(link1);
-
-  // Product card test
-  if (typeof createProductCard === 'function' && typeof PRODUCTS !== 'undefined' && PRODUCTS.length > 0) {
-    var card = createProductCard(PRODUCTS[0]);
-    var hasContent = card.length > 100;
-    log('Product Card Render', hasContent, 'Card HTML length: ' + card.length + ' chars');
-
-    // Show sample card
-    r.innerHTML += '<div class="test"><strong>Sample Product Card:</strong><div style="max-width:280px;margin-top:10px">' + card + '</div></div>';
-  } else {
-    log('Product Card Render', false, 'createProductCard বা PRODUCTS পাওয়া যায়নি');
-  }
-
-  // Cart test
-  var cart = JSON.parse(localStorage.getItem('kp-cart') || '[]');
-  log('Cart Data', true, 'Cart items: ' + cart.length);
-
-  // File list
-  var files = [
-    'css/global.css', 'css/header-footer.css', 'css/home.css',
-    'css/product.css', 'css/cart-checkout.css', 'css/animations.css', 'css/responsive.css',
-    'js/config.js', 'js/products-data.js', 'js/main.js', 'js/home.js',
-    'js/product-display.js', 'js/cart.js', 'js/checkout.js',
-    'js/ui-effects.js', 'js/gtm-tracking.js'
-  ];
-  var missing = [];
-  var checked = 0;
-  files.forEach(function(f) {
-    fetch(f, {method:'HEAD'}).then(function(res) {
-      if (!res.ok) missing.push(f);
-      checked++;
-      if (checked === files.length) {
-        log('All Files Check', missing.length === 0, missing.length > 0 ? 'Missing: ' + missing.join(', ') : 'সব ফাইল আছে!');
-      }
-    }).catch(function() {
-      missing.push(f);
-      checked++;
-      if (checked === files.length) {
-        log('All Files Check', missing.length === 0, 'Missing: ' + missing.join(', '));
-      }
-    });
-  });
+if (typeof createProductCard === 'function' && typeof PRODUCTS !== 'undefined') {
+  var grid = document.getElementById('testGrid');
+  var html = '';
+  PRODUCTS.slice(0, 6).forEach(function(p) { html += createProductCard(p); });
+  grid.innerHTML = html;
+  log('Product Cards', html.length > 100, html.length + ' chars of HTML generated, ' + PRODUCTS.slice(0,6).length + ' cards rendered');
+} else {
+  log('Product Cards', false, 'Cannot render — missing functions');
 }
 </script>
 </body>
