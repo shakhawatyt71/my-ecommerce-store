@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Order — Kora Port</title>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+.track-page{padding:40px 0 60px;max-width:600px;margin:0 auto;text-align:center}
+.track-page h1{font-size:1.8rem;margin-bottom:8px}
+.track-page>p{margin-bottom:32px}
+.track-box{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-lg);padding:32px;text-align:left}
+.track-input-wrap{display:flex;gap:10px;margin-bottom:16px}
+.track-input-wrap .form-input{flex:1}
+.track-result{margin-top:20px}
+.track-found{background:var(--color-success-bg);border:1px solid var(--color-success-border);border-radius:var(--radius-md);padding:20px}
+.track-found h3{color:var(--color-success);margin-bottom:12px}
+.tr-row{display:flex;justify-content:space-between;padding:6px 0;font-size:0.88rem;border-bottom:1px solid var(--color-success-border)}
+.tr-row:last-child{border:none}
+.tr-row span:first-child{color:var(--color-text-muted)}
+.tr-row span:last-child{font-weight:600}
+.track-steps{display:flex;justify-content:space-between;margin:20px 0 0;position:relative}
+.track-steps::before{content:'';position:absolute;top:18px;left:10%;right:10%;height:3px;background:var(--color-border-subtle);z-index:0}
+.t-step{display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1}
+.t-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;border:2px solid var(--color-border-subtle);background:var(--color-bg-card)}
+.t-dot.done{background:var(--color-success);border-color:var(--color-success);color:#fff}
+.t-dot.current{background:var(--color-accent);border-color:var(--color-accent);color:var(--color-text-on-accent);animation:accentPulse 2s infinite}
+.t-label{font-size:0.68rem;color:var(--color-text-muted);font-weight:600}
+.track-not-found{background:var(--color-error-bg);border:1px solid var(--color-error-border);border-radius:var(--radius-md);padding:20px;text-align:center}
+.track-not-found p{color:var(--color-error);margin:0}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="app-header"></div>
+<main class="container track-page">
+<h1>🔍 Track Your Order</h1>
+<p>Enter your Order ID or phone number to check status</p>
+
+<div class="track-box">
+  <div class="track-input-wrap">
+    <input type="text" class="form-input" id="trackInput" placeholder="e.g. KP-20250614-123 or 01XXXXXXXXX">
+    <button class="btn btn-primary" onclick="trackOrder()">Track</button>
+  </div>
+
+  <div class="track-result" id="trackResult"></div>
+</div>
+</main>
+<div id="app-footer"></div>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+function trackOrder(){
+  var q=document.getElementById('trackInput').value.trim();
+  var r=document.getElementById('trackResult');
+  if(!q){r.innerHTML='<p style="color:var(--color-error);font-size:0.88rem;">Please enter Order ID or phone number</p>';return;}
+
+  var order=null;
+  try{order=JSON.parse(localStorage.getItem('kp-last-order'));}catch(e){}
+
+  if(order&&(order.orderId===q||order.customer.phone===q||order.customer.phone.includes(q))){
+    var status=order.status||'Pending';
+    var steps=['Pending','Processing','Shipped','Delivered'];
+    var ci=steps.indexOf(status);
+
+    var stepsHtml='<div class="track-steps">';
+    steps.forEach(function(s,i){
+      var cls=i<ci?'done':i===ci?'current':'';
+      var icons=['📋','⚙️','🚚','✅'];
+      stepsHtml+='<div class="t-step"><div class="t-dot '+cls+'">'+icons[i]+'</div><div class="t-label">'+s+'</div></div>';
+    });
+    stepsHtml+='</div>';
+
+    r.innerHTML='<div class="track-found">'+
+      '<h3>✅ Order Found!</h3>'+
+      '<div class="tr-row"><span>Order ID</span><span>'+order.orderId+'</span></div>'+
+      '<div class="tr-row"><span>Date</span><span>'+order.date+'</span></div>'+
+      '<div class="tr-row"><span>Status</span><span style="color:var(--color-primary)">'+status+'</span></div>'+
+      '<div class="tr-row"><span>Total</span><span>৳'+order.total+'</span></div>'+
+      '<div class="tr-row"><span>Payment</span><span>'+order.paymentMethod.toUpperCase()+'</span></div>'+
+      stepsHtml+'</div>';
+  } else {
+    r.innerHTML='<div class="track-not-found"><p>❌ No order found with "'+q+'"</p><p style="font-size:0.82rem;margin-top:8px;color:var(--color-text-muted)">Please check your Order ID or contact us via WhatsApp</p></div>';
+  }
+}
+</script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>

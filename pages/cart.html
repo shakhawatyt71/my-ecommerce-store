@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cart — Kora Port</title>
+<meta name="description" content="Your shopping cart at Kora Port">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/cart-checkout.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app-header"></div>
+
+<main class="container cart-page">
+
+<nav class="breadcrumb">
+  <a href="../index.html">Home</a> <span>/</span> <span>My Cart</span>
+</nav>
+
+<h1 class="page-title">🛒 My Cart <span class="cart-item-count" id="cartTitleCount"></span></h1>
+
+<!-- Empty Cart -->
+<div class="cart-empty hidden" id="cartEmpty">
+  <div class="empty-icon">🛒</div>
+  <h2>Your cart is empty</h2>
+  <p>Looks like you haven't added anything yet</p>
+  <a href="shop.html" class="btn btn-primary btn-lg">Start Shopping →</a>
+</div>
+
+<!-- Cart With Items -->
+<div class="cart-layout hidden" id="cartLayout">
+
+  <!-- Cart Items -->
+  <div class="cart-items-section">
+    <div class="cart-items-head">
+      <span class="cih-product">Product</span>
+      <span class="cih-price">Price</span>
+      <span class="cih-qty">Quantity</span>
+      <span class="cih-total">Total</span>
+      <span class="cih-action"></span>
+    </div>
+    <div id="cartItems"></div>
+
+    <!-- Cart Actions -->
+    <div class="cart-bottom-actions">
+      <a href="shop.html" class="btn btn-secondary">← Continue Shopping</a>
+      <button class="btn btn-danger btn-sm" onclick="clearCart()">🗑️ Clear Cart</button>
+    </div>
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="cart-summary">
+    <div class="summary-box">
+      <h3 class="summary-title">Order Summary</h3>
+
+      <!-- Subtotal -->
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span class="summary-val" id="sumSubtotal">৳0</span>
+      </div>
+
+      <!-- Shipping -->
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span class="summary-val" id="sumShipping">৳0</span>
+      </div>
+
+      <!-- Shipping Selector -->
+      <div class="shipping-selector">
+        <label class="ship-option">
+          <input type="radio" name="shipArea" value="dhaka" onchange="updateSummary()" checked>
+          <span>Inside Dhaka — ৳60</span>
+        </label>
+        <label class="ship-option">
+          <input type="radio" name="shipArea" value="outside" onchange="updateSummary()">
+          <span>Outside Dhaka — ৳120</span>
+        </label>
+      </div>
+
+      <!-- Free Shipping Notice -->
+      <div class="free-ship-notice" id="freeShipNotice"></div>
+
+      <!-- Coupon -->
+      <div class="coupon-section">
+        <div class="coupon-input-wrap">
+          <input type="text" class="form-input coupon-input" id="couponInput" placeholder="Coupon code">
+          <button class="btn btn-primary btn-sm" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div class="coupon-msg" id="couponMsg"></div>
+        <div class="coupon-applied hidden" id="couponApplied">
+          <span id="couponLabel"></span>
+          <button class="coupon-remove" onclick="removeCoupon()">✕</button>
+        </div>
+      </div>
+
+      <!-- Discount -->
+      <div class="summary-row discount-row hidden" id="discountRow">
+        <span>Discount</span>
+        <span class="summary-val text-success" id="sumDiscount">-৳0</span>
+      </div>
+
+      <!-- Divider -->
+      <div class="summary-divider"></div>
+
+      <!-- Total -->
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span class="summary-val" id="sumTotal">৳0</span>
+      </div>
+
+      <!-- Checkout Button -->
+      <a href="checkout.html" class="btn btn-accent btn-lg btn-full checkout-btn" id="checkoutBtn">
+        Proceed to Checkout →
+      </a>
+
+      <!-- Trust badges -->
+      <div class="summary-trust">
+        <span>🔒 Secure Checkout</span>
+        <span>🚚 Fast Delivery</span>
+        <span>🔄 Easy Returns</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<div id="app-footer"></div>
+
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'page_view',page_type:'cart'});</script>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Kora Port</title>
+<meta name="description" content="Browse all men's fashion products at Kora Port. T-Shirts, Shirts, Pants, Panjabi, Hoodies & Accessories.">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/home.css">
+<link rel="stylesheet" href="../css/product.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app-header"></div>
+
+<main class="container shop-page">
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb" id="breadcrumb">
+  <a href="../index.html">Home</a> <span>/</span> <span id="breadcrumbCurrent">Shop</span>
+</nav>
+
+<!-- Shop Header -->
+<div class="shop-header">
+  <h1 class="shop-title" id="shopTitle">All Products</h1>
+  <p class="shop-count" id="shopCount"></p>
+</div>
+
+<!-- Filter + Products Layout -->
+<div class="shop-layout">
+
+  <!-- Sidebar Filters -->
+  <aside class="shop-sidebar" id="shopSidebar">
+    <div class="filter-head">
+      <h3>🔍 Filters</h3>
+      <button class="btn btn-ghost btn-sm" onclick="clearAllFilters()">Clear All</button>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title" onclick="toggleFilter(this)">Category <span class="f-arrow">▾</span></h4>
+      <div class="filter-body" id="filterCategory"></div>
+    </div>
+
+    <!-- Price Range -->
+    <div class="filter-group">
+      <h4 class="filter-title" onclick="toggleFilter(this)">Price Range <span class="f-arrow">▾</span></h4>
+      <div class="filter-body">
+        <div class="price-range-display">
+          <span id="priceMinLabel">৳0</span> — <span id="priceMaxLabel">৳5000</span>
+        </div>
+        <input type="range" id="priceMin" class="range-slider" min="0" max="5000" step="100" value="0" oninput="applyFilters()">
+        <input type="range" id="priceMax" class="range-slider" min="0" max="5000" step="100" value="5000" oninput="applyFilters()">
+      </div>
+    </div>
+
+    <!-- Size Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title" onclick="toggleFilter(this)">Size <span class="f-arrow">▾</span></h4>
+      <div class="filter-body" id="filterSize"></div>
+    </div>
+
+    <!-- Mobile Filter Close -->
+    <button class="btn btn-primary btn-full mob-filter-apply" onclick="toggleMobileFilter()">Apply Filters</button>
+  </aside>
+
+  <!-- Products Area -->
+  <div class="shop-products">
+    <!-- Sort & View -->
+    <div class="shop-toolbar">
+      <button class="btn btn-ghost btn-sm mob-filter-btn" onclick="toggleMobileFilter()">🔍 Filter</button>
+      <div class="sort-wrap">
+        <label>Sort:</label>
+        <select id="sortSelect" class="form-select sort-select" onchange="applyFilters()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="price-low">Price: Low → High</option>
+          <option value="price-high">Price: High → Low</option>
+          <option value="name-az">Name: A → Z</option>
+          <option value="name-za">Name: Z → A</option>
+          <option value="popular">Most Popular</option>
+        </select>
+      </div>
+      <div class="view-toggle">
+        <button class="vt-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid">▦</button>
+        <button class="vt-btn" id="listViewBtn" onclick="setView('list')" title="List">☰</button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="shopGrid"></div>
+
+    <!-- Empty State -->
+    <div class="empty-state hidden" id="emptyState">
+      <div class="empty-icon">🔍</div>
+      <h3>No products found</h3>
+      <p>Try changing your filters or search term</p>
+      <button class="btn btn-primary" onclick="clearAllFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more-wrap" id="loadMoreWrap">
+      <button class="btn btn-secondary btn-lg" id="loadMoreBtn" onclick="loadMore()">Load More Products</button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div id="app-footer"></div>
+
+<!-- Mobile Filter Overlay -->
+<div class="mob-filter-overlay hidden" id="mobFilterOverlay" onclick="toggleMobileFilter()"></div>
+
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'page_view',page_type:'shop'});</script>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/product-display.js"></script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>

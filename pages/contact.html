@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Kora Port</title>
+<meta name="description" content="Contact Kora Port for any queries about your orders or products.">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+.contact-page{padding:40px 0 60px}
+.contact-page h1{font-size:1.8rem;margin-bottom:8px;text-align:center}
+.contact-page>p{text-align:center;margin-bottom:32px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+.contact-cards{display:flex;flex-direction:column;gap:16px}
+.c-card{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-lg);padding:20px;display:flex;align-items:center;gap:16px;transition:all 0.3s}
+.c-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.c-icon{font-size:1.8rem;width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--color-primary-soft);border-radius:var(--radius-md);flex-shrink:0}
+.c-card h4{font-size:0.92rem;margin-bottom:2px}
+.c-card p{font-size:0.85rem;color:var(--color-text-muted);margin:0}
+.c-card a{color:var(--color-primary);text-decoration:none;font-weight:600}
+.contact-form-box{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-lg);padding:28px}
+.contact-form-box h3{font-size:1.1rem;margin-bottom:20px}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div id="app-header"></div>
+<main class="container contact-page">
+<h1>📞 Contact Us</h1>
+<p>We're here to help. Reach out anytime!</p>
+
+<div class="contact-grid">
+  <div class="contact-cards">
+    <div class="c-card">
+      <div class="c-icon">📞</div>
+      <div><h4>Phone</h4><p><a href="tel:+8801935158745">+880 1935 158745</a></p></div>
+    </div>
+    <div class="c-card">
+      <div class="c-icon">📧</div>
+      <div><h4>Email</h4><p><a href="mailto:contact@koraport.com">contact@koraport.com</a></p></div>
+    </div>
+    <div class="c-card">
+      <div class="c-icon">💬</div>
+      <div><h4>WhatsApp</h4><p><a href="https://wa.me/8801935158745" target="_blank">Chat Now →</a></p></div>
+    </div>
+    <div class="c-card">
+      <div class="c-icon">📘</div>
+      <div><h4>Facebook</h4><p><a href="https://www.facebook.com/thekoraport" target="_blank">@thekoraport</a></p></div>
+    </div>
+    <div class="c-card">
+      <div class="c-icon">📸</div>
+      <div><h4>Instagram</h4><p><a href="https://www.instagram.com/eldoradotale/" target="_blank">@eldoradotale</a></p></div>
+    </div>
+    <div class="c-card">
+      <div class="c-icon">🕐</div>
+      <div><h4>Working Hours</h4><p>Sat–Thu: 10AM – 10PM</p></div>
+    </div>
+  </div>
+
+  <div class="contact-form-box">
+    <h3>📝 Send us a Message</h3>
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-input" id="cfName" placeholder="Your name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone or Email</label>
+      <input type="text" class="form-input" id="cfContact" placeholder="Your phone or email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-textarea" id="cfMsg" rows="4" placeholder="How can we help you?"></textarea>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="sendContactMsg()">Send Message</button>
+    <div id="cfResult" style="margin-top:12px;font-size:0.85rem;"></div>
+  </div>
+</div>
+</main>
+<div id="app-footer"></div>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/gtm-tracking.js"></script>
+<script>
+function sendContactMsg(){
+  var n=document.getElementById('cfName').value.trim();
+  var c=document.getElementById('cfContact').value.trim();
+  var m=document.getElementById('cfMsg').value.trim();
+  if(!n||!c||!m){document.getElementById('cfResult').innerHTML='<span style="color:var(--color-error)">Please fill all fields</span>';return;}
+  var msg='📝 *Contact Form*\n\n👤 '+n+'\n📞 '+c+'\n\n💬 '+m;
+  var url='https://wa.me/8801935158745?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+  document.getElementById('cfResult').innerHTML='<span style="color:var(--color-success)">✅ Redirecting to WhatsApp...</span>';
+}
+</script>
+</body>
+</html>

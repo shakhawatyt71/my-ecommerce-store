@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Kora Port</title>
+<meta name="description" content="Complete your order at Kora Port">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/cart-checkout.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app-header"></div>
+
+<main class="container checkout-page">
+
+<nav class="breadcrumb">
+  <a href="../index.html">Home</a> <span>/</span>
+  <a href="cart.html">Cart</a> <span>/</span>
+  <span>Checkout</span>
+</nav>
+
+<h1 class="page-title">📝 Checkout</h1>
+
+<!-- Empty cart redirect -->
+<div class="cart-empty hidden" id="checkoutEmpty">
+  <div class="empty-icon">🛒</div>
+  <h2>Your cart is empty</h2>
+  <p>Add some products before checkout</p>
+  <a href="shop.html" class="btn btn-primary btn-lg">Go to Shop →</a>
+</div>
+
+<!-- Checkout Content -->
+<div class="checkout-layout hidden" id="checkoutLayout">
+
+  <!-- LEFT: Form -->
+  <div class="checkout-form-section">
+
+    <!-- Customer Info -->
+    <div class="checkout-form-box">
+      <h3 class="checkout-section-title">👤 Customer Information</h3>
+
+      <div class="form-group">
+        <label class="form-label">Full Name *</label>
+        <input type="text" class="form-input" id="coName" placeholder="Enter your full name" required>
+        <div class="form-error-text hidden" id="errName"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-input" id="coPhone" placeholder="01XXXXXXXXX" required>
+          <div class="form-error-text hidden" id="errPhone"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email (Optional)</label>
+          <input type="email" class="form-input" id="coEmail" placeholder="your@email.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">District *</label>
+        <select class="form-select" id="coDistrict" onchange="onDistrictChange()" required>
+          <option value="">Select your district</option>
+          <option value="dhaka">Dhaka</option>
+          <option value="Bagerhat">Bagerhat</option>
+          <option value="Bandarban">Bandarban</option>
+          <option value="Barguna">Barguna</option>
+          <option value="Barishal">Barishal</option>
+          <option value="Bhola">Bhola</option>
+          <option value="Bogura">Bogura</option>
+          <option value="Brahmanbaria">Brahmanbaria</option>
+          <option value="Chandpur">Chandpur</option>
+          <option value="Chapainawabganj">Chapainawabganj</option>
+          <option value="Chattogram">Chattogram</option>
+          <option value="Chuadanga">Chuadanga</option>
+          <option value="Comilla">Comilla</option>
+          <option value="Cox's Bazar">Cox's Bazar</option>
+          <option value="Dinajpur">Dinajpur</option>
+          <option value="Faridpur">Faridpur</option>
+          <option value="Feni">Feni</option>
+          <option value="Gaibandha">Gaibandha</option>
+          <option value="Gazipur">Gazipur</option>
+          <option value="Gopalganj">Gopalganj</option>
+          <option value="Habiganj">Habiganj</option>
+          <option value="Jamalpur">Jamalpur</option>
+          <option value="Jashore">Jashore</option>
+          <option value="Jhalokati">Jhalokati</option>
+          <option value="Jhenaidah">Jhenaidah</option>
+          <option value="Joypurhat">Joypurhat</option>
+          <option value="Khagrachhari">Khagrachhari</option>
+          <option value="Khulna">Khulna</option>
+          <option value="Kishoreganj">Kishoreganj</option>
+          <option value="Kurigram">Kurigram</option>
+          <option value="Kushtia">Kushtia</option>
+          <option value="Lakshmipur">Lakshmipur</option>
+          <option value="Lalmonirhat">Lalmonirhat</option>
+          <option value="Madaripur">Madaripur</option>
+          <option value="Magura">Magura</option>
+          <option value="Manikganj">Manikganj</option>
+          <option value="Meherpur">Meherpur</option>
+          <option value="Moulvibazar">Moulvibazar</option>
+          <option value="Munshiganj">Munshiganj</option>
+          <option value="Mymensingh">Mymensingh</option>
+          <option value="Naogaon">Naogaon</option>
+          <option value="Narail">Narail</option>
+          <option value="Narayanganj">Narayanganj</option>
+          <option value="Narsingdi">Narsingdi</option>
+          <option value="Natore">Natore</option>
+          <option value="Nawabganj">Nawabganj</option>
+          <option value="Netrokona">Netrokona</option>
+          <option value="Nilphamari">Nilphamari</option>
+          <option value="Noakhali">Noakhali</option>
+          <option value="Pabna">Pabna</option>
+          <option value="Panchagarh">Panchagarh</option>
+          <option value="Patuakhali">Patuakhali</option>
+          <option value="Pirojpur">Pirojpur</option>
+          <option value="Rajbari">Rajbari</option>
+          <option value="Rajshahi">Rajshahi</option>
+          <option value="Rangamati">Rangamati</option>
+          <option value="Rangpur">Rangpur</option>
+          <option value="Satkhira">Satkhira</option>
+          <option value="Shariatpur">Shariatpur</option>
+          <option value="Sherpur">Sherpur</option>
+          <option value="Sirajganj">Sirajganj</option>
+          <option value="Sunamganj">Sunamganj</option>
+          <option value="Sylhet">Sylhet</option>
+          <option value="Tangail">Tangail</option>
+          <option value="Thakurgaon">Thakurgaon</option>
+        </select>
+        <div class="form-error-text hidden" id="errDistrict"></div>
+        <div class="shipping-auto-info" id="shipAutoInfo"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Full Address *</label>
+        <textarea class="form-textarea" id="coAddress" placeholder="House/Road/Area, Thana, District" rows="3" required></textarea>
+        <div class="form-error-text hidden" id="errAddress"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Order Note (Optional)</label>
+        <textarea class="form-textarea" id="coNote" placeholder="Any special instructions for your order..." rows="2"></textarea>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="checkout-form-box" style="margin-top:20px;">
+      <h3 class="checkout-section-title">💳 Payment Method</h3>
+
+      <div class="payment-methods" id="paymentMethods">
+
+        <!-- COD -->
+        <label class="pay-method active" id="payCOD" onclick="selectPayment('cod')">
+          <input type="radio" name="payMethod" value="cod" checked>
+          <div class="pay-method-info">
+            <div class="pay-method-name">💵 Cash on Delivery</div>
+            <div class="pay-method-desc">Pay when you receive your order</div>
+          </div>
+        </label>
+
+        <!-- bKash -->
+        <label class="pay-method" id="payBkash" onclick="selectPayment('bkash')">
+          <input type="radio" name="payMethod" value="bkash">
+          <div class="pay-method-info">
+            <div class="pay-method-name">📱 bKash</div>
+            <div class="pay-method-desc">Send Money to our bKash number</div>
+          </div>
+        </label>
+
+        <!-- Nagad -->
+        <label class="pay-method" id="payNagad" onclick="selectPayment('nagad')">
+          <input type="radio" name="payMethod" value="nagad">
+          <div class="pay-method-info">
+            <div class="pay-method-name">📱 Nagad</div>
+            <div class="pay-method-desc">Send Money to our Nagad number</div>
+          </div>
+        </label>
+
+        <!-- Bank -->
+        <label class="pay-method" id="payBank" onclick="selectPayment('bank')">
+          <input type="radio" name="payMethod" value="bank" disabled>
+          <div class="pay-method-info">
+            <div class="pay-method-name">🏦 Bank Transfer</div>
+            <div class="pay-method-desc">Transfer to our bank account</div>
+          </div>
+          <span class="pay-method-badge coming">Coming Soon</span>
+        </label>
+
+        <!-- Card -->
+        <label class="pay-method" id="payCard" onclick="selectPayment('card')">
+          <input type="radio" name="payMethod" value="card" disabled>
+          <div class="pay-method-info">
+            <div class="pay-method-name">💳 Debit/Credit Card</div>
+            <div class="pay-method-desc">Visa, Mastercard</div>
+          </div>
+          <span class="pay-method-badge coming">Coming Soon</span>
+        </label>
+
+      </div>
+
+      <!-- bKash Details (hidden by default) -->
+      <div class="pay-details hidden" id="bkashDetails">
+        <p><strong>Send Money to:</strong></p>
+        <div class="pay-number">
+          <span id="bkashNum">01306267594</span>
+          <button class="copy-btn" onclick="copyNumber('01306267594')">Copy</button>
+        </div>
+        <p style="margin-top:8px; font-size:0.8rem; color:var(--color-text-muted);">Type: Personal | Send exact amount</p>
+        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+          <label class="form-label">bKash Transaction ID *</label>
+          <input type="text" class="form-input" id="coTrxBkash" placeholder="e.g. TRX8A5K3M2">
+          <div class="form-error-text hidden" id="errTrxBkash"></div>
+        </div>
+      </div>
+
+      <!-- Nagad Details (hidden by default) -->
+      <div class="pay-details hidden" id="nagadDetails">
+        <p><strong>Send Money to:</strong></p>
+        <div class="pay-number">
+          <span id="nagadNum">01935158745</span>
+          <button class="copy-btn" onclick="copyNumber('01935158745')">Copy</button>
+        </div>
+        <p style="margin-top:8px; font-size:0.8rem; color:var(--color-text-muted);">Type: Personal | Send exact amount</p>
+        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+          <label class="form-label">Nagad Transaction ID *</label>
+          <input type="text" class="form-input" id="coTrxNagad" placeholder="e.g. NAG7B2X9P1">
+          <div class="form-error-text hidden" id="errTrxNagad"></div>
+        </div>
+      </div>
+
+      <!-- Advance Payment (COD only) -->
+      <div class="pay-details" id="advanceSection" style="margin-top:12px;">
+        <p style="font-size:0.85rem;"><strong>Want to pay an advance?</strong> (Optional)</p>
+        <p style="font-size:0.78rem; color:var(--color-text-muted); margin-bottom:8px;">Pay a partial amount via bKash/Nagad, rest on delivery</p>
+        <div class="form-row">
+          <div class="form-group" style="margin:0;">
+            <input type="number" class="form-input" id="coAdvance" placeholder="Advance amount (৳)" min="0">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <select class="form-select" id="coAdvanceMethod">
+              <option value="">Via</option>
+              <option value="bkash">bKash</option>
+              <option value="nagad">Nagad</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:8px; margin-bottom:0;">
+          <input type="text" class="form-input" id="coAdvanceTrx" placeholder="Transaction ID (if advance paid)">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Place Order Button (Mobile) -->
+    <button class="btn btn-accent btn-full btn-lg confirm-btn mob-confirm hidden" id="mobConfirmBtn" onclick="placeOrder()">
+      ✅ Confirm Order
+    </button>
+
+  </div>
+
+  <!-- RIGHT: Order Summary -->
+  <div class="checkout-summary">
+
+    <div class="checkout-items">
+      <h3 class="checkout-section-title">📦 Order Summary</h3>
+      <div id="coItemsList"></div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span class="summary-val" id="coSubtotal">৳0</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span class="summary-val" id="coShipping">৳0</span>
+      </div>
+      <div class="summary-row discount-row hidden" id="coDiscountRow">
+        <span>Discount</span>
+        <span class="summary-val text-success" id="coDiscount">-৳0</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span class="summary-val" id="coTotal">৳0</span>
+      </div>
+
+      <button class="btn btn-accent btn-full btn-lg confirm-btn" id="confirmBtn" onclick="placeOrder()">
+        ✅ Confirm Order
+      </button>
+
+      <div class="summary-trust">
+        <span>🔒 Secure</span>
+        <span>🚚 Fast Delivery</span>
+        <span>🔄 Easy Returns</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<div id="app-footer"></div>
+
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'page_view',page_type:'checkout'});</script>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/checkout.js"></script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>

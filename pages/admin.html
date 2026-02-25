@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kora Port</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../css/global.css">
+<style>
+*{box-sizing:border-box}
+body{background:var(--color-bg-body);font-family:var(--font-body)}
+.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:var(--color-bg-card);padding:32px;border-radius:16px;border:1px solid var(--color-border-subtle);max-width:400px;width:100%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+.login-box h1{font-size:1.5rem;margin-bottom:8px}
+.login-box p{font-size:0.88rem;color:var(--color-text-muted);margin-bottom:24px}
+.login-error{color:var(--color-error);font-size:0.82rem;margin-top:8px;display:none}
+
+.admin-wrap{display:none}
+.admin-header{background:var(--color-bg-card);border-bottom:1px solid var(--color-border-subtle);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.admin-header h2{font-size:1.1rem;margin:0}
+.admin-body{padding:20px;max-width:1200px;margin:0 auto}
+
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:12px;padding:20px}
+.stat-card .stat-num{font-size:1.8rem;font-weight:800;color:var(--color-primary)}
+.stat-card .stat-label{font-size:0.8rem;color:var(--color-text-muted);margin-top:4px}
+
+.admin-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.admin-tab{padding:10px 20px;border:1px solid var(--color-border-subtle);border-radius:8px;background:var(--color-bg-card);cursor:pointer;font-size:0.88rem;font-weight:600;transition:all 0.2s}
+.admin-tab.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+
+.admin-section{display:none}
+.admin-section.active{display:block}
+
+.admin-table{width:100%;border-collapse:collapse;font-size:0.82rem;background:var(--color-bg-card);border-radius:12px;overflow:hidden;border:1px solid var(--color-border-subtle)}
+.admin-table th,.admin-table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--color-border-subtle)}
+.admin-table th{background:var(--color-primary);color:#fff;font-weight:600;font-size:0.78rem;text-transform:uppercase}
+.admin-table tr:hover td{background:var(--color-bg-card-subtle)}
+.admin-table .status-badge{padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700}
+.status-pending{background:#FEF3C7;color:#92400E}
+.status-processing{background:#DBEAFE;color:#1E40AF}
+.status-shipped{background:#D1FAE5;color:#065F46}
+.status-delivered{background:#D1FAE5;color:#065F46}
+.status-cancelled{background:#FEE2E2;color:#991B1B}
+
+.product-edit-card{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;gap:12px;align-items:center}
+.product-edit-card img{width:60px;height:60px;object-fit:cover;border-radius:8px}
+.product-edit-info{flex:1}
+.product-edit-info h4{font-size:0.88rem;margin:0 0 4px}
+.product-edit-info p{font-size:0.78rem;color:var(--color-text-muted);margin:0}
+.product-edit-actions{display:flex;gap:6px}
+
+.coupon-card{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+
+.admin-link-card{background:var(--color-bg-card);border:1px solid var(--color-border-subtle);border-radius:12px;padding:16px;margin-bottom:10px}
+.admin-link-card a{color:var(--color-primary);font-weight:600;text-decoration:none}
+
+@media(max-width:768px){
+  .admin-stats{grid-template-columns:1fr 1fr}
+  .admin-table{font-size:0.72rem}
+  .admin-table th,.admin-table td{padding:8px 6px}
+  .product-edit-card{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="admin-login" id="adminLogin">
+  <div class="login-box">
+    <h1>🔐 Admin Panel</h1>
+    <p>Kora Port Management</p>
+    <div class="form-group">
+      <input type="password" class="form-input" id="adminPwd" placeholder="Enter password" onkeyup="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn btn-primary btn-full" onclick="adminLogin()">Login</button>
+    <div class="login-error" id="loginError">❌ Wrong password</div>
+  </div>
+</div>
+
+<!-- Admin Dashboard -->
+<div class="admin-wrap" id="adminWrap">
+
+  <div class="admin-header">
+    <h2>🏪 Kora Port Admin</h2>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="../index.html" class="btn btn-ghost btn-sm">🌐 View Site</a>
+      <button class="btn btn-danger btn-sm" onclick="adminLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- Stats -->
+    <div class="admin-stats" id="adminStats">
+      <div class="stat-card"><div class="stat-num" id="statOrders">0</div><div class="stat-label">Total Orders</div></div>
+      <div class="stat-card"><div class="stat-num" id="statProducts">0</div><div class="stat-label">Products</div></div>
+      <div class="stat-card"><div class="stat-num" id="statCategories">0</div><div class="stat-label">Categories</div></div>
+      <div class="stat-card"><div class="stat-num" id="statCartItems">0</div><div class="stat-label">Items in Carts</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="showTab('orders')">📋 Orders</div>
+      <div class="admin-tab" onclick="showTab('products')">📦 Products</div>
+      <div class="admin-tab" onclick="showTab('categories')">📂 Categories</div>
+      <div class="admin-tab" onclick="showTab('coupons')">🏷️ Coupons</div>
+      <div class="admin-tab" onclick="showTab('sheets')">📊 Google Sheet</div>
+      <div class="admin-tab" onclick="showTab('settings')">⚙️ Settings</div>
+    </div>
+
+    <!-- Orders Section -->
+    <div class="admin-section active" id="sec-orders">
+      <h3>📋 Recent Orders</h3>
+      <p style="font-size:0.85rem;color:var(--color-text-muted);margin-bottom:16px">
+        Orders are saved in Google Sheets. Last order shown below from local storage.
+      </p>
+      <div id="ordersTable"></div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="admin-section" id="sec-products">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h3>📦 Products (<span id="prodCount">0</span>)</h3>
+      </div>
+      <p style="font-size:0.82rem;color:var(--color-text-muted);margin-bottom:16px">
+        প্রোডাক্ট যোগ/এডিট/ডিলিট করতে <code>js/products-data.js</code> ফাইল এডিট করুন।<br>
+        নতুন প্রোডাক্ট যোগ করতে যেকোনো একটা প্রোডাক্টের ব্লক কপি করে ডেটা বদলান।
+      </p>
+      <div id="productsList"></div>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="admin-section" id="sec-categories">
+      <h3>📂 Categories (<span id="catCount">0</span>)</h3>
+      <p style="font-size:0.82rem;color:var(--color-text-muted);margin-bottom:16px">
+        ক্যাটাগরি যোগ/এডিট/ডিলিট করতে <code>js/products-data.js</code> ফাইলের CATEGORIES array এডিট করুন।
+      </p>
+      <div id="categoriesList"></div>
+    </div>
+
+    <!-- Coupons Section -->
+    <div class="admin-section" id="sec-coupons">
+      <h3>🏷️ Coupon Codes</h3>
+      <p style="font-size:0.82rem;color:var(--color-text-muted);margin-bottom:16px">
+        কুপন যোগ/এডিট করতে <code>js/config.js</code> ফাইলের coupons array এডিট করুন।
+      </p>
+      <div id="couponsList"></div>
+    </div>
+
+    <!-- Google Sheet Section -->
+    <div class="admin-section" id="sec-sheets">
+      <h3>📊 Google Sheet</h3>
+      <div class="admin-link-card">
+        <p><strong>📋 Orders Sheet:</strong></p>
+        <p style="font-size:0.82rem;color:var(--color-text-muted)">Google Sheets অ্যাপে গিয়ে "Kora Port Orders" শিট ওপেন করুন।</p>
+        <p style="margin-top:8px"><a href="https://docs.google.com/spreadsheets" target="_blank">📊 Open Google Sheets →</a></p>
+      </div>
+      <div class="admin-link-card">
+        <p><strong>📈 Sheet URL (Backend):</strong></p>
+        <p style="font-size:0.78rem;color:var(--color-text-muted);word-break:break-all;margin-top:6px" id="sheetUrlDisplay">checkout.js ফাইলে SHEET_URL দেখুন</p>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="admin-section" id="sec-settings">
+      <h3>⚙️ Settings & Quick Links</h3>
+
+      <div class="admin-link-card">
+        <p><strong>🏪 Store Settings:</strong></p>
+        <p style="font-size:0.82rem;color:var(--color-text-muted)"><code>js/config.js</code> ফাইলে সব সেটিংস আছে — নাম, ফোন, শিপিং চার্জ, পেমেন্ট নম্বর।</p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>📊 GTM Dashboard:</strong></p>
+        <p style="margin-top:6px"><a href="https://tagmanager.google.com" target="_blank">🔗 Open Google Tag Manager →</a></p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>📱 Meta Events Manager:</strong></p>
+        <p style="margin-top:6px"><a href="https://business.facebook.com/events_manager2" target="_blank">🔗 Open Events Manager →</a></p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>🌐 Netlify Dashboard:</strong></p>
+        <p style="margin-top:6px"><a href="https://app.netlify.com" target="_blank">🔗 Open Netlify →</a></p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>💬 WhatsApp Business:</strong></p>
+        <p style="margin-top:6px"><a href="https://wa.me/8801935158745" target="_blank">🔗 Open WhatsApp →</a></p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>🔑 Admin Password Change:</strong></p>
+        <p style="font-size:0.82rem;color:var(--color-text-muted)"><code>js/config.js</code> → settings.adminPassword পরিবর্তন করুন।</p>
+      </div>
+
+      <div class="admin-link-card">
+        <p><strong>🌙 Custom Domain Setup:</strong></p>
+        <p style="font-size:0.82rem;color:var(--color-text-muted)">
+          1. Namecheap/GoDaddy থেকে ডোমেইন কিনুন<br>
+          2. Netlify → Domain Settings → Add custom domain<br>
+          3. DNS রেকর্ড আপডেট করুন (Netlify নির্দেশনা দিবে)<br>
+          4. SSL অটো এনাবল হবে
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script>
+/* ═══ LOGIN ═══ */
+function adminLogin() {
+  var pwd = document.getElementById('adminPwd').value;
+  if (pwd === CONFIG.settings.adminPassword) {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'block';
+    sessionStorage.setItem('kp-admin', '1');
+    loadDashboard();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('kp-admin');
+  location.reload();
+}
+
+/* Auto login if session */
+if (sessionStorage.getItem('kp-admin') === '1') {
+  document.getElementById('adminLogin').style.display = 'none';
+  document.getElementById('adminWrap').style.display = 'block';
+  document.addEventListener('DOMContentLoaded', loadDashboard);
+}
+
+/* ═══ TABS ═══ */
+function showTab(name) {
+  document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
+  var sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* ═══ DASHBOARD ═══ */
+function loadDashboard() {
+  document.getElementById('statProducts').textContent = PRODUCTS.length;
+  document.getElementById('statCategories').textContent = CATEGORIES.length;
+  document.getElementById('prodCount').textContent = PRODUCTS.length;
+  document.getElementById('catCount').textContent = CATEGORIES.length;
+
+  var cart = [];
+  try { cart = JSON.parse(localStorage.getItem('kp-cart') || '[]'); } catch(e) {}
+  document.getElementById('statCartItems').textContent = cart.reduce(function(s,i){return s+i.qty;}, 0);
+
+  // Last order
+  var order = null;
+  try { order = JSON.parse(localStorage.getItem('kp-last-order')); } catch(e) {}
+  var ordersEl = document.getElementById('ordersTable');
+  if (order) {
+    document.getElementById('statOrders').textContent = '1+';
+    ordersEl.innerHTML = '<table class="admin-table"><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>' +
+      '<tr><td>' + order.orderId + '</td><td>' + order.date + '</td><td>' + order.customer.name + '</td><td>' + order.customer.phone + '</td><td>৳' + order.total + '</td><td>' + order.paymentMethod.toUpperCase() + '</td><td><span class="status-badge status-pending">Pending</span></td></tr>' +
+      '</tbody></table><p style="font-size:0.8rem;color:var(--color-text-muted);margin-top:12px">📊 সব অর্ডার দেখতে Google Sheets ওপেন করুন।</p>';
+  } else {
+    document.getElementById('statOrders').textContent = '0';
+    ordersEl.innerHTML = '<p style="color:var(--color-text-muted)">এখনো কোনো অর্ডার নেই।</p>';
+  }
+
+  // Products list
+  var prodEl = document.getElementById('productsList');
+  var prodHtml = '';
+  PRODUCTS.forEach(function(p) {
+    var price = p.discountPrice || p.price;
+    prodHtml += '<div class="product-edit-card"><img src="' + p.image + '" alt="' + p.name + '"><div class="product-edit-info"><h4>' + p.name + '</h4><p>৳' + price + ' | Stock: ' + p.stock + ' | ID: ' + p.id + ' | Categories: ' + p.categories.join(', ') + '</p></div></div>';
+  });
+  prodEl.innerHTML = prodHtml;
+
+  // Categories list
+  var catEl = document.getElementById('categoriesList');
+  var catHtml = '';
+  CATEGORIES.forEach(function(c) {
+    var count = PRODUCTS.filter(function(p){return p.categories.includes(c.id);}).length;
+    catHtml += '<div class="coupon-card"><span>' + c.icon + ' <strong>' + c.name + '</strong> (' + c.id + ') — ' + count + ' products</span><span class="status-badge ' + (c.type==='special'?'status-processing':'status-shipped') + '">' + c.type + '</span></div>';
+  });
+  catEl.innerHTML = catHtml;
+
+  // Coupons list
+  var coupEl = document.getElementById('couponsList');
+  var coupHtml = '';
+  CONFIG.coupons.forEach(function(c) {
+    coupHtml += '<div class="coupon-card"><span>🏷️ <strong>' + c.code + '</strong> — ' + c.discount + '% OFF</span><span class="status-badge ' + (c.active?'status-shipped':'status-cancelled') + '">' + (c.active?'Active':'Inactive') + '</span></div>';
+  });
+  coupEl.innerHTML = coupHtml;
+}
+</script>
+</body>
+</html>

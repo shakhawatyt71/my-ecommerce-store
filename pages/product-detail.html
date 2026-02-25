@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Kora Port</title>
+<meta name="description" content="Shop premium men's fashion at Kora Port">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/home.css">
+<link rel="stylesheet" href="../css/product.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app-header"></div>
+
+<main class="container pd-page">
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+  <a href="../index.html">Home</a> <span>/</span>
+  <a href="shop.html">Shop</a> <span>/</span>
+  <span id="pdBreadcrumb">Product</span>
+</nav>
+
+<!-- Product Detail -->
+<div class="pd-layout" id="pdLayout">
+  <!-- Fills via JS -->
+</div>
+
+<!-- Related Products -->
+<section class="section" id="relatedSection" style="display:none">
+  <h2 class="section-title">You May Also Like</h2>
+  <div class="product-grid" id="relatedGrid"></div>
+</section>
+
+</main>
+
+<!-- Size Chart Modal -->
+<div class="modal-overlay hidden" id="sizeChartModal" onclick="closeSizeChart(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3>📏 Size Chart</h3>
+      <button class="modal-close" onclick="closeSizeChart()">✕</button>
+    </div>
+    <div class="modal-body" id="sizeChartBody">
+      <table class="size-table">
+        <thead>
+          <tr><th>Size</th><th>Chest (in)</th><th>Length (in)</th><th>Shoulder (in)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>M</td><td>38-40</td><td>27</td><td>17</td></tr>
+          <tr><td>L</td><td>40-42</td><td>28</td><td>18</td></tr>
+          <tr><td>XL</td><td>42-44</td><td>29</td><td>19</td></tr>
+          <tr><td>XXL</td><td>44-46</td><td>30</td><td>20</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Image Zoom Modal -->
+<div class="modal-overlay hidden" id="imgZoomModal" onclick="closeImgZoom()">
+  <div class="zoom-container">
+    <img id="zoomImg" src="" alt="Zoomed">
+    <button class="modal-close zoom-close" onclick="closeImgZoom()">✕</button>
+  </div>
+</div>
+
+<div id="app-footer"></div>
+
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'page_view',page_type:'product_detail'});</script>
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/product-display.js"></script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>

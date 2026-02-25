@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed — Kora Port</title>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header-footer.css">
+<link rel="stylesheet" href="../css/cart-checkout.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<style>
+  .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden}
+  .confetti{position:absolute;top:-10px;width:10px;height:10px;opacity:0.8;animation:confettiFall 3s linear forwards}
+  @keyframes confettiFall{
+    0%{transform:translateY(0) rotate(0deg);opacity:1}
+    100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+  }
+  .shipping-auto-badge{display:inline-block;padding:6px 12px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;margin-top:6px}
+  .shipping-auto-badge.inside{background:var(--color-success-bg);color:var(--color-success)}
+  .shipping-auto-badge.outside{background:var(--color-info-bg);color:var(--color-info)}
+  .mob-confirm{display:none}
+  @media(max-width:768px){.mob-confirm{display:block;margin-top:20px}}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app-header"></div>
+
+<!-- Confetti -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<main class="success-page">
+  <div class="success-box" id="successBox">
+    <div class="success-icon">🎉</div>
+    <h1 class="success-title">Order Confirmed!</h1>
+    <p class="success-sub">Thank you for shopping with Kora Port. We'll process your order soon.</p>
+
+    <div class="order-id-box">
+      <div class="order-id-label">Your Order ID</div>
+      <div class="order-id-val" id="sucOrderId">—</div>
+    </div>
+
+    <div class="success-details" id="sucDetails">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- WhatsApp Redirect -->
+    <div style="margin-bottom:16px;">
+      <p style="font-size:0.88rem; color:var(--color-text-secondary); margin-bottom:10px;">
+        📱 Want to receive order updates on WhatsApp?
+      </p>
+      <a href="#" class="wa-redirect" id="waRedirectBtn" target="_blank">
+        💬 Send Order to WhatsApp
+      </a>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-align:left; background:var(--color-bg-section); padding:16px; border-radius:var(--radius-md); margin-bottom:20px;">
+      <h4 style="font-size:0.92rem; margin-bottom:8px;">📋 What's Next?</h4>
+      <ul style="font-size:0.82rem; color:var(--color-text-secondary); padding-left:16px; list-style:disc;">
+        <li style="margin-bottom:4px;">We'll verify your order within 1-2 hours</li>
+        <li style="margin-bottom:4px;">You'll receive a confirmation call/SMS</li>
+        <li style="margin-bottom:4px;">Your order will be dispatched within 24 hours</li>
+        <li>Estimated delivery: 1-5 business days</li>
+      </ul>
+    </div>
+
+    <div class="success-actions">
+      <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+      <a href="track-order.html" class="btn btn-secondary">Track Order</a>
+    </div>
+  </div>
+</main>
+
+<div id="app-footer"></div>
+
+<script src="../js/config.js"></script>
+<script src="../js/products-data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var order = null;
+  try { order = JSON.parse(localStorage.getItem('kp-last-order')); } catch(e) {}
+
+  if (!order) {
+    document.getElementById('sucOrderId').textContent = 'No order found';
+    return;
+  }
+
+  // Order ID
+  document.getElementById('sucOrderId').textContent = order.orderId;
+
+  // Details
+  var det = document.getElementById('sucDetails');
+  if (det) {
+    var payLabel = order.paymentMethod === 'cod' ? 'Cash on Delivery' :
+                   order.paymentMethod === 'bkash' ? 'bKash' :
+                   order.paymentMethod === 'nagad' ? 'Nagad' : order.paymentMethod;
+
+    var html = '<div class="success-detail-row"><span>Name</span><span>' + order.customer.name + '</span></div>' +
+      '<div class="success-detail-row"><span>Phone</span><span>' + order.customer.phone + '</span></div>' +
+      '<div class="success-detail-row"><span>District</span><span>' + order.customer.district + '</span></div>' +
+      '<div class="success-detail-row"><span>Items</span><span>' + order.totalItems + ' product(s)</span></div>' +
+      '<div class="success-detail-row"><span>Subtotal</span><span>' + CONFIG.currency.symbol + order.subtotal + '</span></div>';
+
+    if (order.shipping > 0) {
+      html += '<div class="success-detail-row"><span>Shipping</span><span>' + CONFIG.currency.symbol + order.shipping + '</span></div>';
+    } else {
+      html += '<div class="success-detail-row"><span>Shipping</span><span style="color:var(--color-success)">FREE</span></div>';
+    }
+
+    if (order.discount > 0) {
+      html += '<div class="success-detail-row"><span>Discount (' + order.couponCode + ')</span><span style="color:var(--color-success)">-' + CONFIG.currency.symbol + order.discount + '</span></div>';
+    }
+
+    html += '<div class="success-detail-row" style="font-weight:700;font-size:1rem;"><span>Total</span><span style="color:var(--color-primary)">' + CONFIG.currency.symbol + order.total + '</span></div>' +
+      '<div class="success-detail-row"><span>Payment</span><span>' + payLabel + '</span></div>';
+
+    if (order.transactionId) {
+      html += '<div class="success-detail-row"><span>Trx ID</span><span>' + order.transactionId + '</span></div>';
+    }
+
+    if (order.advance > 0) {
+      html += '<div class="success-detail-row"><span>Advance Paid</span><span style="color:var(--color-success)">' + CONFIG.currency.symbol + order.advance + ' (' + order.advanceMethod + ')</span></div>';
+    }
+
+    det.innerHTML = html;
+  }
+
+  // WhatsApp redirect
+  var waBtn = document.getElementById('waRedirectBtn');
+  if (waBtn) {
+    var msg = '✅ *Order Confirmed!*\n\n' +
+      '🆔 Order: ' + order.orderId + '\n' +
+      '👤 Name: ' + order.customer.name + '\n' +
+      '📞 Phone: ' + order.customer.phone + '\n' +
+      '📍 Address: ' + order.customer.address + ', ' + order.customer.district + '\n\n' +
+      '📦 Products:\n' + order.products + '\n\n' +
+      '💰 Total: ' + CONFIG.currency.symbol + order.total + '\n' +
+      '💳 Payment: ' + order.paymentMethod.toUpperCase() + '\n\n' +
+      'Please confirm my order. Thank you!';
+
+    waBtn.href = CONFIG.social.whatsappChat + '?text=' + encodeURIComponent(msg);
+  }
+
+  // Confetti
+  launchConfetti();
+
+  // GTM
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'purchase_complete',
+    order_id: order.orderId,
+    order_value: order.total
+  });
+});
+
+/* ═══ CONFETTI ═══ */
+function launchConfetti() {
+  var container = document.getElementById('confettiContainer');
+  if (!container) return;
+  var colors = ['#0E5B4A','#C89A3C','#2D5C78','#D14B3F','#1E9C6D','#C27B24','#ff6b6b','#ffd93d','#6bcb77','#4d96ff'];
+
+  for (var i = 0; i < 60; i++) {
+    var el = document.createElement('div');
+    el.className = 'confetti';
+    el.style.left = Math.random() * 100 + '%';
+    el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    el.style.width = (Math.random() * 8 + 6) + 'px';
+    el.style.height = (Math.random() * 8 + 6) + 'px';
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    el.style.animationDelay = (Math.random() * 2) + 's';
+    container.appendChild(el);
+  }
+
+  setTimeout(function() {
+    container.innerHTML = '';
+  }, 5000);
+}
+</script>
+<script src="../js/gtm-tracking.js"></script>
+</body>
+</html>
