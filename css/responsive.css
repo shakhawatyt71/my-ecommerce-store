@@ -1,0 +1,150 @@
+/*
+ * 📱 KORA PORT — Extra Responsive Fixes
+ * মূল responsive styles প্রতিটা CSS ফাইলে আছে,
+ * এখানে শুধু additional fixes ও global mobile tweaks
+ */
+
+/* ═══ TABLET (769px - 1024px) ═══ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container { padding: 0 20px; }
+  .product-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .hero-title { font-size: 2.6rem; }
+  .pd-layout { gap: 24px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+
+/* ═══ MOBILE LARGE (481px - 768px) ═══ */
+@media (max-width: 768px) {
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  .section { padding: 32px 0; }
+  .section-title { font-size: 1.3rem; }
+
+  /* Fix touch targets - minimum 44px */
+  .btn { min-height: 44px; }
+  .nav-link { padding: 12px 14px; }
+  .form-input, .form-select, .form-textarea {
+    padding: 14px 16px;
+    font-size: 16px; /* iOS zoom fix */
+  }
+
+  /* Cart items better spacing */
+  .cart-layout { gap: 16px; }
+  .summary-box { position: static; }
+
+  /* Better product grid */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .p-card-body { padding: 10px; }
+  .p-card-name { font-size: 0.82rem; }
+  .p-card-desc { display: none; }
+  .p-card-rating { margin-bottom: 4px; }
+  .p-stats { gap: 6px; }
+  .p-stat { font-size: 0.62rem; }
+  .p-actions {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    padding: 8px 10px;
+    background: var(--color-bg-card);
+  }
+  .p-act-btn { padding: 8px; font-size: 0.72rem; }
+
+  /* Checkout fixes */
+  .checkout-summary { position: static; }
+  .checkout-form-box { padding: 16px; }
+}
+
+/* ═══ MOBILE SMALL (max 480px) ═══ */
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .container { padding: 0 12px; }
+  h1 { font-size: 1.4rem; }
+  .hero { min-height: 320px; }
+  .hero-title { font-size: 1.7rem; }
+  .hero-sub { font-size: 0.9rem; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn { width: 100%; justify-content: center; }
+
+  .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cat-card { padding: 14px 6px; }
+  .cat-icon { font-size: 1.3rem; }
+  .cat-name { font-size: 0.72rem; }
+
+  .product-grid { gap: 8px; }
+  .p-card-img { padding-top: 130%; }
+
+  .deal-title { font-size: 1.5rem; }
+
+  .why-grid { grid-template-columns: 1fr; }
+  .why-card { padding: 16px 12px; }
+
+  .page-title { font-size: 1.3rem; }
+
+  /* Price display */
+  .price-current { font-size: 1.1rem; }
+  .price-original { font-size: 0.8rem; }
+
+  /* Flash sale countdown */
+  .cd-box { min-width: 42px; padding: 6px 8px; }
+  .cd-box span { font-size: 1.05rem; }
+
+  .flash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+  .site-footer { padding: 32px 0 0; }
+}
+
+/* ═══ VERY SMALL (max 360px) ═══ */
+@media (max-width: 360px) {
+  .hero-title { font-size: 1.5rem; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .p-card-name { font-size: 0.75rem; }
+  .btn { padding: 10px 16px; font-size: 0.85rem; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ LANDSCAPE PHONE ═══ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { min-height: 280px; }
+  .hero-content { padding: 20px 0; }
+  .hero-title { font-size: 1.8rem; }
+}
+
+/* ═══ PRINT ═══ */
+@media print {
+  .site-header, .site-nav, .site-footer,
+  .wa-float, .scroll-top, .announcement-bar,
+  .mob-menu, .mob-overlay { display: none !important; }
+  body { background: #fff; color: #000; }
+  .container { max-width: 100%; }
+}
+
+/* ═══ SAFE AREA (notch phones) ═══ */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .site-header {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  .site-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ═══ DARK MODE HINT (future) ═══ */
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-body: #0D1117;
+    --color-bg-card: #161B22;
+    ...
+  }
+}
+*/

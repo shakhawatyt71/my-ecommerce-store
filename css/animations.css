@@ -1,0 +1,315 @@
+/*
+ * ✨ KORA PORT — Animations & Effects
+ * 60fps-120fps smooth animations
+ */
+
+/* ═══════════════════════════
+   BUY NOW — PULSE GLOW + SHAKE
+   ═══════════════════════════ */
+.btn-accent,
+.pd-buy-btn,
+.checkout-btn,
+.confirm-btn {
+  animation: accentPulse 2.5s infinite;
+  will-change: box-shadow;
+}
+@keyframes accentPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,154,60,0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(200,154,60,0); }
+}
+
+.pd-buy-btn:hover,
+.confirm-btn:hover {
+  animation: btnShake 0.5s ease;
+}
+@keyframes btnShake {
+  0%, 100% { transform: translateX(0) translateY(-2px); }
+  15% { transform: translateX(-3px) translateY(-2px); }
+  30% { transform: translateX(3px) translateY(-2px); }
+  45% { transform: translateX(-2px) translateY(-2px); }
+  60% { transform: translateX(2px) translateY(-2px); }
+  75% { transform: translateX(-1px) translateY(-2px); }
+}
+
+/* ═══════════════════════════
+   CART BADGE — BOUNCE + SHAKE
+   ═══════════════════════════ */
+@keyframes cartBounceShake {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.5) rotate(-8deg); }
+  40% { transform: scale(0.85) rotate(8deg); }
+  60% { transform: scale(1.2) rotate(-4deg); }
+  80% { transform: scale(0.95) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.cart-badge-anim {
+  animation: cartBounceShake 0.6s cubic-bezier(0.36,0.07,0.19,0.97);
+}
+
+/* ═══════════════════════════
+   SCROLL REVEAL — SUBTLE FADE
+   সব কিছু ডিফল্টে দেখা যাবে।
+   স্ক্রল করলে শুধু একটু subtle animation হবে।
+   ═══════════════════════════ */
+.reveal {
+  opacity: 1;
+  transform: none ;
+  transition: opacity 0.65s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
+  will-change: opacity, transform;
+}
+
+/* JS লোড হলে এবং element viewport এ না থাকলে hide হবে */
+.reveal.scroll-hidden {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+/* viewport এ আসলে visible হবে */
+.reveal.scroll-hidden.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════
+   PRODUCT CARD — HOVER LIFT
+   ═══════════════════════════ */
+.p-card {
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.35s ease;
+  will-change: transform;
+}
+.p-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.p-card:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
+}
+
+.p-card-img img {
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+  will-change: transform;
+}
+.p-card:hover .p-card-img img {
+  transform: scale(1.06);
+}
+
+/* ═══════════════════════════
+   BADGE — SHINE EFFECT
+   ═══════════════════════════ */
+.badge {
+  position: relative;
+  overflow: hidden;
+}
+.badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  animation: badgeShine 3s ease-in-out infinite;
+  will-change: left;
+}
+@keyframes badgeShine {
+  0%, 100% { left: -100%; }
+  50% { left: 150%; }
+}
+
+/* ═══════════════════════════
+   HERO — ENTRY ANIMATIONS
+   ═══════════════════════════ */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-25px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(25px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══════════════════════════
+   TOAST — NOTIFICATION
+   ═══════════════════════════ */
+.kp-toast {
+  animation: toastIn 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  will-change: transform, opacity;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ═══════════════════════════
+   WHATSAPP FLOAT — PULSE
+   ═══════════════════════════ */
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(37,211,102,0.4); }
+  50% { box-shadow: 0 4px 24px rgba(37,211,102,0.6), 0 0 0 14px rgba(37,211,102,0.08); }
+}
+.wa-float {
+  animation: waPulse 2.5s ease infinite;
+  will-change: box-shadow;
+}
+
+/* ═══════════════════════════
+   COUNTDOWN — NUMBER TICK
+   ═══════════════════════════ */
+.cd-tick {
+  animation: cdTick 0.3s ease;
+}
+@keyframes cdTick {
+  0% { transform: translateY(-4px); opacity: 0.5; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ═══════════════════════════
+   WHY US — SLIDE OPEN
+   ═══════════════════════════ */
+.why-grid {
+  transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.5s ease;
+  will-change: max-height, opacity;
+}
+.why-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+}
+.why-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ═══════════════════════════
+   MODAL — OPEN/CLOSE
+   ═══════════════════════════ */
+.modal-overlay {
+  animation: modalFadeIn 0.25s ease;
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-box {
+  animation: modalSlideIn 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ═══════════════════════════
+   MOBILE MENU — SLIDE
+   ═══════════════════════════ */
+.mob-menu {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+
+/* ═══════════════════════════
+   CATEGORY CARD — HOVER
+   ═══════════════════════════ */
+.cat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+.cat-card:hover {
+  transform: translateY(-6px);
+}
+.cat-card .cat-icon {
+  transition: transform 0.3s ease;
+}
+.cat-card:hover .cat-icon {
+  transform: scale(1.15);
+}
+
+/* ═══════════════════════════
+   CART ITEM — REMOVE SLIDE
+   ═══════════════════════════ */
+.cart-item {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+/* ═══════════════════════════
+   CONFETTI (Success Page)
+   ═══════════════════════════ */
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  30% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+/* ═══════════════════════════
+   DEAL BANNER — SUBTLE GLOW
+   ═══════════════════════════ */
+.deal-banner {
+  position: relative;
+  overflow: hidden;
+}
+.deal-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(200,154,60,0.08) 0%, transparent 50%);
+  animation: dealGlow 6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes dealGlow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -20px); }
+}
+
+/* ═══════════════════════════
+   LINK/BUTTON TRANSITIONS
+   ═══════════════════════════ */
+.btn {
+  transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+  will-change: transform;
+}
+a, .nav-link, .dd-item, .f-links a {
+  transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
+}
+
+/* ═══════════════════════════
+   SKELETON LOADING
+   ═══════════════════════════ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-section) 25%, var(--color-bg-card-subtle) 50%, var(--color-bg-section) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ═══════════════════════════
+   REDUCED MOTION SUPPORT
+   ═══════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
