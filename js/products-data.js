@@ -8,7 +8,7 @@ const CATEGORIES = [
   { id: "tshirt",     name: "T-Shirt",          icon: "👕", type: "regular" },
   { id: "shirt",      name: "Shirt",            icon: "👔", type: "regular" },
   { id: "pants",      name: "Pants",            icon: "👖", type: "regular" },
-  { id: "panjabi",    name: "Panjabi",          icon: "🥻", type: "regular" },
+  { id: "panjabi",    name: "Panjabi",          icon: "👳🏻", type: "regular" },
   { id: "hoodie",     name: "Hoodie & Jacket",  icon: "🧥", type: "regular" },
   { id: "underwear",  name: "Innerwear",        icon: "🩲", type: "regular" },
   { id: "accessories",name: "Accessories",      icon: "⌚", type: "regular" },
