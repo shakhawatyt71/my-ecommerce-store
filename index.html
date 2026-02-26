@@ -1,108 +1,396 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kora Port — Premium Men's Fashion Store</title>
-<meta name="description" content="Kora Port — Premium Men's Fashion Store in Bangladesh. Shop T-Shirts, Shirts, Pants, Panjabi, Hoodies & Accessories with Free Delivery on orders over ৳2999.">
-<meta name="keywords" content="mens fashion, mens clothing, t-shirt, shirt, panjabi, hoodie, pants, accessories, online shopping, bangladesh">
-<meta property="og:title" content="Kora Port — Redefine Your Style">
-<meta property="og:description" content="Premium Men's Fashion & Lifestyle Store. Free Delivery on ৳2999+">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://koraport.netlify.app">
-<link rel="canonical" href="https://koraport.netlify.app">
-
-<!-- GTM Head -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TWPPQPTG');</script>
-
-<link rel="stylesheet" href="css/global.css">
-<link rel="stylesheet" href="css/header-footer.css">
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Kora Port - Premium Lifestyle Store</title>
+    <meta name="description" content="Kora Port - Your trusted online store for premium lifestyle products">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    
+    <!-- Google Tag Manager - HEAD (MUST BE FIRST) -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- CSS Files - Correct Order -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- GTM Body -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWPPQPTG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- Google Tag Manager (noscript) - IMMEDIATELY AFTER BODY -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<div id="app-header"></div>
-
-<main>
-
-<!-- HERO -->
-<section class="hero" id="heroSection">
-  <div class="hero-bg"></div>
-  <div class="container hero-content">
-    <div class="hero-text">
-      <span class="hero-badge">✨ New Collection 2025</span>
-      <h1 class="hero-title">Redefine<br>Your <span class="hero-highlight">Style</span></h1>
-      <p class="hero-sub">Premium Men's Fashion at Your Fingertips</p>
-      <div class="hero-btns">
-        <a href="pages/shop.html" class="btn btn-accent btn-lg">Shop Now →</a>
-        <a href="pages/shop.html?cat=new-arrivals" class="btn btn-secondary btn-lg">New Arrivals</a>
-      </div>
-      <div class="hero-trust">
-        <span>🚚 Free Delivery ৳2999+</span>
-        <span>✅ 100% Authentic</span>
-        <span>🔄 Easy Returns</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CATEGORIES -->
-<section class="section" id="categorySection">
-  <div class="container">
-    <h2 class="section-title reveal">Browse by Category</h2>
-    <div class="cat-grid" id="categoryGrid"></div>
-  </div>
-</section>
-
-<!-- NEW ARRIVALS -->
-<section class="section section-alt" id="newArrivalsSection">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">🆕 New Arrivals</h2>
-      <a href="pages/shop.html?cat=new-arrivals" class="view-all">View All →</a>
-    </div>
-    <div class="product-grid" id="newArrivalsGrid"></div>
-  </div>
-</section>
-
-<!-- FLASH SALE / HOT SALES -->
-<section class="section flash-sale-section" id="hotSalesSection">
-  <div class="container">
-    <div class="flash-header reveal">
-      <h2 class="section-title">🔥 Hot Sales</h2>
-      <div class="countdown" id="countdown">
-        <span class="cd-label">Ends in:</span>
-        <div class="cd-boxes">
-          <div class="cd-box"><span id="cdHours">00</span><small>HRS</small></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-box"><span id="cdMins">00</span><small>MIN</small></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-box"><span id="cdSecs">00</span><small>SEC</small></div>
+    <!-- ============ HEADER ============ -->
+    <header class="site-header" id="site-header">
+        <div class="header-container">
+            <!-- Top Bar -->
+            <div class="header-top">
+                <div class="container">
+                    <div class="top-bar-content">
+                        <span class="free-shipping-text">
+                            <i class="fas fa-truck"></i> ঢাকায় ৭০৳ | ঢাকার বাইরে ১৩০৳ ডেলিভারি
+                        </span>
+                        <div class="top-bar-links">
+                            <a href="pages/track-order.html"><i class="fas fa-map-marker-alt"></i> অর্ডার ট্র্যাক</a>
+                            <a href="pages/contact.html"><i class="fas fa-phone"></i> হেল্পলাইন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Header -->
+            <div class="header-main">
+                <div class="container">
+                    <div class="header-content">
+                        <!-- Logo -->
+                        <a href="index.html" class="logo">
+                            <img src="images/logo.png" alt="Kora Port" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <span class="logo-text" style="display:none;">
+                                <span class="logo-kora">KORA</span>
+                                <span class="logo-port">PORT</span>
+                            </span>
+                        </a>
+                        
+                        <!-- Search Bar -->
+                        <div class="search-container">
+                            <form class="search-form" id="search-form">
+                                <input type="text" class="search-input" id="search-input" placeholder="আপনি কি খুঁজছেন...">
+                                <button type="submit" class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <div class="search-results" id="search-results"></div>
+                        </div>
+                        
+                        <!-- Header Actions -->
+                        <div class="header-actions">
+                            <a href="pages/orders.html" class="action-btn" title="আমার অর্ডার">
+                                <i class="fas fa-box"></i>
+                                <span class="action-text">অর্ডার</span>
+                            </a>
+                            <a href="pages/cart.html" class="action-btn cart-btn" id="cart-btn" title="কার্ট">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-badge" id="cart-badge">0</span>
+                                <span class="action-text">কার্ট</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Mobile Menu Toggle -->
+                        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav" id="main-nav">
+                <div class="container">
+                    <ul class="nav-list">
+                        <li class="nav-item active">
+                            <a href="index.html" class="nav-link">
+                                <i class="fas fa-home"></i> হোম
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/shop.html" class="nav-link">
+                                <i class="fas fa-store"></i> শপ
+                            </a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-th-large"></i> ক্যাটাগরি
+                                <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </a>
+                            <ul class="dropdown-menu" id="category-dropdown">
+                                <!-- Categories will be loaded dynamically -->
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/about.html" class="nav-link">
+                                <i class="fas fa-info-circle"></i> আমাদের সম্পর্কে
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/contact.html" class="nav-link">
+                                <i class="fas fa-envelope"></i> যোগাযোগ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-      </div>
-    </div>
-    <div class="product-grid" id="hotSalesGrid"></div>
-  </div>
-</section>
+    </header>
 
-<!-- FEATURED -->
-<section class="section" id="featuredSection">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">⭐ Featured Products</h2>
-      <a href="pages/shop.html" class="view-all">View All →</a>
-    </div>
-    <div class="product-grid" id="featuredGrid"></div>
-  </div>
-</section>
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content" id="main-content">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-slider" id="hero-slider">
+                <div class="hero-slide active">
+                    <div class="hero-content">
+                        <h1 class="hero-title">প্রিমিয়াম লাইফস্টাইল প্রোডাক্ট</h1>
+                        <p class="hero-subtitle">সেরা মানের পণ্য, সেরা দামে</p>
+                        <a href="pages/shop.html" class="hero-btn">
+                            <i class="fas fa-shopping-bag"></i> এখনই কিনুন
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- DEAL BANNER -->
-<section class="deal-banner reveal" id="dealBanner">
-  <div class="container deal-content">
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>দ্রুত ডেলিভারি</h4>
+                            <p>সারাদেশে ডেলিভারি</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>১০০% অরিজিনাল</h4>
+                            <p>গ্যারান্টেড প্রোডাক্ট</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>ইজি রিটার্ন</h4>
+                            <p>৭ দিনের রিটার্ন পলিসি</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>২৪/৭ সাপোর্ট</h4>
+                            <p>যেকোনো সময় সাহায্য</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">জনপ্রিয় ক্যাটাগরি</h2>
+                    <a href="pages/shop.html" class="view-all-link">সব দেখুন <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="products-section featured-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">ফিচার্ড প্রোডাক্ট</h2>
+                    <a href="pages/shop.html" class="view-all-link">সব দেখুন <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="products-grid" id="featured-products">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- New Arrivals Section -->
+        <section class="products-section new-arrivals-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">নতুন এসেছে</h2>
+                    <a href="pages/shop.html?filter=new" class="view-all-link">সব দেখুন <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="products-grid" id="new-arrivals">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h3>আপডেট পেতে সাবস্ক্রাইব করুন</h3>
+                    <p>নতুন প্রোডাক্ট ও অফারের খবর সবার আগে পান</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" placeholder="আপনার ইমেইল দিন" required>
+                        <button type="submit">সাবস্ক্রাইব</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer" id="site-footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About Column -->
+                    <div class="footer-column">
+                        <div class="footer-logo">
+                            <span class="logo-kora">KORA</span>
+                            <span class="logo-port">PORT</span>
+                        </div>
+                        <p class="footer-about">
+                            কোরা পোর্ট - আপনার বিশ্বস্ত অনলাইন শপিং ডেস্টিনেশন। প্রিমিয়াম মানের প্রোডাক্ট সেরা দামে।
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">দ্রুত লিংক</h4>
+                        <ul class="footer-links">
+                            <li><a href="pages/shop.html">সব প্রোডাক্ট</a></li>
+                            <li><a href="pages/about.html">আমাদের সম্পর্কে</a></li>
+                            <li><a href="pages/contact.html">যোগাযোগ</a></li>
+                            <li><a href="pages/track-order.html">অর্ডার ট্র্যাক</a></li>
+                            <li><a href="pages/orders.html">আমার অর্ডার</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Policies -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">পলিসি</h4>
+                        <ul class="footer-links">
+                            <li><a href="pages/shipping-policy.html">শিপিং পলিসি</a></li>
+                            <li><a href="pages/return-policy.html">রিটার্ন পলিসি</a></li>
+                            <li><a href="pages/privacy.html">প্রাইভেসি পলিসি</a></li>
+                            <li><a href="pages/terms.html">টার্মস অ্যান্ড কন্ডিশন</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">যোগাযোগ</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <span>+880 1XXX-XXXXXX</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span>support@koraport.com</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>ঢাকা, বাংলাদেশ</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <span>সকাল ৯টা - রাত ১০টা</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Methods -->
+        <div class="footer-payment">
+            <div class="container">
+                <p>আমরা যেভাবে পেমেন্ট নিই:</p>
+                <div class="payment-icons">
+                    <span class="payment-method bkash">বিকাশ</span>
+                    <span class="payment-method nagad">নগদ</span>
+                    <span class="payment-method cod">ক্যাশ অন ডেলিভারি</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 Kora Port. সর্বস্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="quick-view-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" title="উপরে যান">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript Files - CORRECT ORDER IS CRITICAL -->
+    <script src="js/config.js"></script>
+    <script src="js/products-data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/product-display.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/ui-effects.js"></script>
+    <script src="js/gtm-tracking.js"></script>
+    
+    <!-- Debug Info (Remove in Production) -->
+    <script>
+        console.log('=== KORA PORT DEBUG ===');
+        console.log('Page loaded:', new Date().toISOString());
+        console.log('Header found:', !!document.getElementById('site-header'));
+        console.log('Footer found:', !!document.getElementById('site-footer'));
+        console.log('Products data:', typeof window.productsData !== 'undefined' ? window.productsData.length + ' products' : 'NOT LOADED');
+    </script>
+</body>
+  </html>  <div class="container deal-content">
     <div class="deal-text">
       <span class="deal-tag">💥 Stock Clearance</span>
       <h2 class="deal-title">Up to 50% OFF</h2>
